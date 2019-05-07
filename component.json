@@ -1,0 +1,492 @@
+{
+    "title": "Azure Data Migration Service Resource Provider",
+    "description": "The Data Migration Service helps people migrate their data from on-premise database servers to Azure, or from older database software to newer software. The service manages one or more workers that are joined to a customer's virtual network, which is assumed to provide connectivity to their databases. To avoid frequent updates to the resource provider, data migration tasks are implemented by the resource provider in a generic way as task resources, each of which has a task type (which identifies the type of work to run), input, and output. The client is responsible for providing appropriate task type and inputs, which will be passed through unexamined to the machines that implement the functionality, and for understanding the output, which is passed back unexamined to the client.",
+    "docsUrl": "",
+    "url": "https://api.apis.guru/v2/specs/azure.com/datamigration/2018-03-15-preview/swagger.json",
+    "envVars": {
+        "OAUTH_CLIENT_ID": {
+            "description": "OAuth Client ID"
+        },
+        "OAUTH_CLIENT_SECRET": {
+            "description": "OAuth Client Secret"
+        }
+    },
+    "credentials": {
+        "fields": {
+            "server": {
+                "label": "Server",
+                "viewClass": "SelectView",
+                "model": [
+                    "https://management.azure.com/",
+                    "--- Custom URL"
+                ],
+                "required": true
+            },
+            "otherServer": {
+                "label": "Custom Server URL",
+                "viewClass": "TextFieldView"
+            },
+            "azure_auth": {
+                "label": "Azure Active Directory OAuth2 Flow",
+                "viewClass": "OAuthFieldView"
+            }
+        },
+        "oauth2": {
+            "client_id": "{{OAUTH_CLIENT_ID}}",
+            "client_secret": "{{OAUTH_CLIENT_SECRET}}",
+            "auth_uri": "https://login.microsoftonline.com/common/oauth2/authorize"
+        }
+    },
+    "triggers": {
+        "startFlow": {
+            "main": "./lib/triggers/startFlow.js",
+            "type": "polling",
+            "title": "Start Flow",
+            "fields": {}
+        }
+    },
+    "actions": {
+        "Operations_List": {
+            "main": "./lib/actions/Operations_List.js",
+            "title": "Get available resource provider actions (operations)",
+            "description": "Lists all available actions exposed by the Data Migration Service resource provider.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/Operations_List.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "Services_CheckNameAvailability": {
+            "main": "./lib/actions/Services_CheckNameAvailability.js",
+            "title": "Check name validity and availability",
+            "description": "This method checks whether a proposed top-level resource name is valid and available.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/Services_CheckNameAvailability.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "Usages_List": {
+            "main": "./lib/actions/Usages_List.js",
+            "title": "Get resource quotas and usage information",
+            "description": "This method returns region-specific quotas and resource usage information for the Data Migration Service.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/Usages_List.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "Services_List": {
+            "main": "./lib/actions/Services_List.js",
+            "title": "Get services in subscription",
+            "description": "The services resource is the top-level resource that represents the Data Migration Service. This method returns a list of service resources in a subscription.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/Services_List.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "ResourceSkus_ListSkus": {
+            "main": "./lib/actions/ResourceSkus_ListSkus.js",
+            "title": "Get supported SKUs",
+            "description": "The skus action returns the list of SKUs that DMS supports.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/ResourceSkus_ListSkus.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "Services_ListByResourceGroup": {
+            "main": "./lib/actions/Services_ListByResourceGroup.js",
+            "title": "Get services in resource group",
+            "description": "The Services resource is the top-level resource that represents the Data Migration Service. This method returns a list of service resources in a resource group.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/Services_ListByResourceGroup.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "Services_Delete": {
+            "main": "./lib/actions/Services_Delete.js",
+            "title": "Delete DMS Service Instance",
+            "description": "The services resource is the top-level resource that represents the Data Migration Service. The DELETE method deletes a service. Any running tasks will be canceled.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/Services_Delete.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "Services_Get": {
+            "main": "./lib/actions/Services_Get.js",
+            "title": "Get DMS Service Instance",
+            "description": "The services resource is the top-level resource that represents the Data Migration Service. The GET method retrieves information about a service instance.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/Services_Get.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "Services_Update": {
+            "main": "./lib/actions/Services_Update.js",
+            "title": "Create or update DMS Service Instance",
+            "description": "The services resource is the top-level resource that represents the Data Migration Service. The PATCH method updates an existing service. This method can change the kind, SKU, and network of the service, but if tasks are currently running (i.e. the service is busy), this will fail with 400 Bad Request (\"ServiceIsBusy\").",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/Services_Update.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "Services_CreateOrUpdate": {
+            "main": "./lib/actions/Services_CreateOrUpdate.js",
+            "title": "Create or update DMS Instance",
+            "description": "The services resource is the top-level resource that represents the Data Migration Service. The PUT method creates a new service or updates an existing one. When a service is updated, existing child resources (i.e. tasks) are unaffected. Services currently support a single kind, \"vm\", which refers to a VM-based service, although other kinds may be added in the future. This method can change the kind, SKU, and network of the service, but if tasks are currently running (i.e. the service is busy), this will fail with 400 Bad Request (\"ServiceIsBusy\"). The provider will reply when successful with 200 OK or 201 Created. Long-running operations use the provisioningState property.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/Services_CreateOrUpdate.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "Services_CheckChildrenNameAvailability": {
+            "main": "./lib/actions/Services_CheckChildrenNameAvailability.js",
+            "title": "Check nested resource name validity and availability",
+            "description": "This method checks whether a proposed nested resource name is valid and available.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/Services_CheckChildrenNameAvailability.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "Services_CheckStatus": {
+            "main": "./lib/actions/Services_CheckStatus.js",
+            "title": "Check service health status",
+            "description": "The services resource is the top-level resource that represents the Data Migration Service. This action performs a health check and returns the status of the service and virtual machine size.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/Services_CheckStatus.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "Projects_List": {
+            "main": "./lib/actions/Projects_List.js",
+            "title": "Get projects in a service",
+            "description": "The project resource is a nested resource representing a stored migration project. This method returns a list of projects owned by a service resource.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/Projects_List.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "Projects_Delete": {
+            "main": "./lib/actions/Projects_Delete.js",
+            "title": "Delete project",
+            "description": "The project resource is a nested resource representing a stored migration project. The DELETE method deletes a project.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/Projects_Delete.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "Projects_Get": {
+            "main": "./lib/actions/Projects_Get.js",
+            "title": "Get project information",
+            "description": "The project resource is a nested resource representing a stored migration project. The GET method retrieves information about a project.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/Projects_Get.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "Projects_Update": {
+            "main": "./lib/actions/Projects_Update.js",
+            "title": "Update project",
+            "description": "The project resource is a nested resource representing a stored migration project. The PATCH method updates an existing project.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/Projects_Update.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "Projects_CreateOrUpdate": {
+            "main": "./lib/actions/Projects_CreateOrUpdate.js",
+            "title": "Create or update project",
+            "description": "The project resource is a nested resource representing a stored migration project. The PUT method creates a new project or updates an existing one.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/Projects_CreateOrUpdate.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "Tasks_List": {
+            "main": "./lib/actions/Tasks_List.js",
+            "title": "Get tasks in a service",
+            "description": "The services resource is the top-level resource that represents the Data Migration Service. This method returns a list of tasks owned by a service resource. Some tasks may have a status of Unknown, which indicates that an error occurred while querying the status of that task.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/Tasks_List.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "Tasks_Delete": {
+            "main": "./lib/actions/Tasks_Delete.js",
+            "title": "Delete task",
+            "description": "The tasks resource is a nested, proxy-only resource representing work performed by a DMS instance. The DELETE method deletes a task, canceling it first if it's running.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/Tasks_Delete.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "Tasks_Get": {
+            "main": "./lib/actions/Tasks_Get.js",
+            "title": "Get task information",
+            "description": "The tasks resource is a nested, proxy-only resource representing work performed by a DMS instance. The GET method retrieves information about a task.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/Tasks_Get.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "Tasks_Update": {
+            "main": "./lib/actions/Tasks_Update.js",
+            "title": "Create or update task",
+            "description": "The tasks resource is a nested, proxy-only resource representing work performed by a DMS instance. The PATCH method updates an existing task, but since tasks have no mutable custom properties, there is little reason to do so.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/Tasks_Update.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "Tasks_CreateOrUpdate": {
+            "main": "./lib/actions/Tasks_CreateOrUpdate.js",
+            "title": "Create or update task",
+            "description": "The tasks resource is a nested, proxy-only resource representing work performed by a DMS instance. The PUT method creates a new task or updates an existing one, although since tasks have no mutable custom properties, there is little reason to update an exising one.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/Tasks_CreateOrUpdate.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "Tasks_Cancel": {
+            "main": "./lib/actions/Tasks_Cancel.js",
+            "title": "Cancel a task",
+            "description": "The tasks resource is a nested, proxy-only resource representing work performed by a DMS instance. This method cancels a task if it's currently queued or running.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/Tasks_Cancel.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "Services_ListSkus": {
+            "main": "./lib/actions/Services_ListSkus.js",
+            "title": "Get compatible SKUs",
+            "description": "The services resource is the top-level resource that represents the Data Migration Service. The skus action returns the list of SKUs that a service resource can be updated to.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/Services_ListSkus.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "Services_Start": {
+            "main": "./lib/actions/Services_Start.js",
+            "title": "Start service",
+            "description": "The services resource is the top-level resource that represents the Data Migration Service. This action starts the service and the service can be used for data migration.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/Services_Start.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "Services_Stop": {
+            "main": "./lib/actions/Services_Stop.js",
+            "title": "Stop service",
+            "description": "The services resource is the top-level resource that represents the Data Migration Service. This action stops the service and the service cannot be used for data migration. The service owner won't be billed when the service is stopped.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/Services_Stop.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        }
+    }
+}

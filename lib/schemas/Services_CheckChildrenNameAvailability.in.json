@@ -1,0 +1,35 @@
+{
+    "type": "object",
+    "properties": {
+        "subscriptionId": {
+            "required": true,
+            "type": "string"
+        },
+        "groupName": {
+            "required": true,
+            "type": "string"
+        },
+        "serviceName": {
+            "required": true,
+            "type": "string"
+        },
+        "requestBody": {
+            "description": "A resource type and proposed name",
+            "properties": {
+                "name": {
+                    "description": "The proposed resource name",
+                    "type": "string"
+                },
+                "type": {
+                    "description": "The resource type chain (e.g. virtualMachines/extensions)",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "api_version": {
+            "required": true,
+            "type": "string"
+        }
+    }
+}

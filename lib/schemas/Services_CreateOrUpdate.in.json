@@ -1,0 +1,154 @@
+{
+    "type": "object",
+    "properties": {
+        "subscriptionId": {
+            "required": true,
+            "type": "string"
+        },
+        "groupName": {
+            "required": true,
+            "type": "string"
+        },
+        "serviceName": {
+            "required": true,
+            "type": "string"
+        },
+        "requestBody": {
+            "allOf": [
+                {
+                    "allOf": [
+                        {
+                            "description": "ARM resource.",
+                            "properties": {
+                                "id": {
+                                    "description": "Resource ID.",
+                                    "readOnly": true,
+                                    "type": "string"
+                                },
+                                "name": {
+                                    "description": "Resource name.",
+                                    "readOnly": true,
+                                    "type": "string"
+                                },
+                                "type": {
+                                    "description": "Resource type.",
+                                    "readOnly": true,
+                                    "type": "string"
+                                }
+                            },
+                            "x-ms-azure-resource": true,
+                            "type": "object"
+                        }
+                    ],
+                    "description": "ARM tracked top level resource.",
+                    "properties": {
+                        "location": {
+                            "description": "Resource location.",
+                            "type": "string",
+                            "x-ms-mutability": [
+                                "read",
+                                "create"
+                            ]
+                        },
+                        "tags": {
+                            "additionalProperties": {
+                                "type": "string"
+                            },
+                            "description": "Resource tags.",
+                            "type": "object",
+                            "x-ms-mutability": [
+                                "read",
+                                "create",
+                                "update"
+                            ]
+                        }
+                    },
+                    "required": [
+                        "location"
+                    ],
+                    "type": "object"
+                }
+            ],
+            "description": "A Data Migration Service resource",
+            "properties": {
+                "etag": {
+                    "description": "HTTP strong entity tag value. Ignored if submitted",
+                    "type": "string"
+                },
+                "kind": {
+                    "description": "The resource kind. Only 'vm' (the default) is supported.",
+                    "type": "string"
+                },
+                "properties": {
+                    "description": "Properties of the Data Migration service instance",
+                    "properties": {
+                        "provisioningState": {
+                            "description": "The resource's provisioning state",
+                            "enum": [
+                                "Accepted",
+                                "Deleting",
+                                "Deploying",
+                                "Stopped",
+                                "Stopping",
+                                "Starting",
+                                "FailedToStart",
+                                "FailedToStop",
+                                "Succeeded",
+                                "Failed"
+                            ],
+                            "readOnly": true,
+                            "type": "string",
+                            "x-ms-enum": {
+                                "modelAsString": true,
+                                "name": "ServiceProvisioningState"
+                            }
+                        },
+                        "publicKey": {
+                            "description": "The public key of the service, used to encrypt secrets sent to the service",
+                            "type": "string"
+                        },
+                        "virtualSubnetId": {
+                            "description": "The ID of the Microsoft.Network/virtualNetworks/subnets resource to which the service should be joined",
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "virtualSubnetId"
+                    ],
+                    "type": "object"
+                },
+                "sku": {
+                    "description": "An Azure SKU instance",
+                    "properties": {
+                        "capacity": {
+                            "description": "The capacity of the SKU, if it supports scaling",
+                            "type": "integer"
+                        },
+                        "family": {
+                            "description": "The SKU family, used when the service has multiple performance classes within a tier, such as 'A', 'D', etc. for virtual machines",
+                            "type": "string"
+                        },
+                        "name": {
+                            "description": "The unique name of the SKU, such as 'P3'",
+                            "type": "string"
+                        },
+                        "size": {
+                            "description": "The size of the SKU, used when the name alone does not denote a service size or when a SKU has multiple performance classes within a family, e.g. 'A1' for virtual machines",
+                            "type": "string"
+                        },
+                        "tier": {
+                            "description": "The tier of the SKU, such as 'Free', 'Basic', 'Standard', or 'Premium'",
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                }
+            },
+            "type": "object"
+        },
+        "api_version": {
+            "required": true,
+            "type": "string"
+        }
+    }
+}

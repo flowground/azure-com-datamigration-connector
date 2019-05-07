@@ -1,0 +1,206 @@
+{
+    "type": "object",
+    "properties": {
+        "subscriptionId": {
+            "required": true,
+            "type": "string"
+        },
+        "groupName": {
+            "required": true,
+            "type": "string"
+        },
+        "serviceName": {
+            "required": true,
+            "type": "string"
+        },
+        "projectName": {
+            "required": true,
+            "type": "string"
+        },
+        "requestBody": {
+            "allOf": [
+                {
+                    "allOf": [
+                        {
+                            "description": "ARM resource.",
+                            "properties": {
+                                "id": {
+                                    "description": "Resource ID.",
+                                    "readOnly": true,
+                                    "type": "string"
+                                },
+                                "name": {
+                                    "description": "Resource name.",
+                                    "readOnly": true,
+                                    "type": "string"
+                                },
+                                "type": {
+                                    "description": "Resource type.",
+                                    "readOnly": true,
+                                    "type": "string"
+                                }
+                            },
+                            "x-ms-azure-resource": true,
+                            "type": "object"
+                        }
+                    ],
+                    "description": "ARM tracked top level resource.",
+                    "properties": {
+                        "location": {
+                            "description": "Resource location.",
+                            "type": "string",
+                            "x-ms-mutability": [
+                                "read",
+                                "create"
+                            ]
+                        },
+                        "tags": {
+                            "additionalProperties": {
+                                "type": "string"
+                            },
+                            "description": "Resource tags.",
+                            "type": "object",
+                            "x-ms-mutability": [
+                                "read",
+                                "create",
+                                "update"
+                            ]
+                        }
+                    },
+                    "required": [
+                        "location"
+                    ],
+                    "type": "object"
+                }
+            ],
+            "description": "A project resource",
+            "properties": {
+                "properties": {
+                    "description": "Project-specific properties",
+                    "properties": {
+                        "creationTime": {
+                            "description": "UTC Date and time when project was created",
+                            "format": "date-time",
+                            "readOnly": true,
+                            "type": "string"
+                        },
+                        "databasesInfo": {
+                            "description": "List of DatabaseInfo",
+                            "items": {
+                                "description": "Project Database Details",
+                                "properties": {
+                                    "sourceDatabaseName": {
+                                        "description": "Name of the database",
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "sourceDatabaseName"
+                                ],
+                                "type": "object"
+                            },
+                            "type": "array"
+                        },
+                        "provisioningState": {
+                            "description": "The project's provisioning state",
+                            "enum": [
+                                "Deleting",
+                                "Succeeded"
+                            ],
+                            "readOnly": true,
+                            "type": "string",
+                            "x-ms-enum": {
+                                "modelAsString": true,
+                                "name": "ProjectProvisioningState"
+                            }
+                        },
+                        "sourceConnectionInfo": {
+                            "description": "Defines the connection properties of a server",
+                            "discriminator": {
+                                "propertyName": "type"
+                            },
+                            "properties": {
+                                "password": {
+                                    "description": "Password credential.",
+                                    "type": "string"
+                                },
+                                "type": {
+                                    "description": "Type of connection info",
+                                    "type": "string"
+                                },
+                                "userName": {
+                                    "description": "User name",
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "type"
+                            ],
+                            "type": "object",
+                            "x-ms-discriminator-value": "Unknown"
+                        },
+                        "sourcePlatform": {
+                            "description": "Source platform of the project",
+                            "enum": [
+                                "SQL",
+                                "Unknown"
+                            ],
+                            "type": "string",
+                            "x-ms-enum": {
+                                "modelAsString": true,
+                                "name": "ProjectSourcePlatform"
+                            }
+                        },
+                        "targetConnectionInfo": {
+                            "description": "Defines the connection properties of a server",
+                            "discriminator": {
+                                "propertyName": "type"
+                            },
+                            "properties": {
+                                "password": {
+                                    "description": "Password credential.",
+                                    "type": "string"
+                                },
+                                "type": {
+                                    "description": "Type of connection info",
+                                    "type": "string"
+                                },
+                                "userName": {
+                                    "description": "User name",
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "type"
+                            ],
+                            "type": "object",
+                            "x-ms-discriminator-value": "Unknown"
+                        },
+                        "targetPlatform": {
+                            "description": "Target platform of the project",
+                            "enum": [
+                                "SQLDB",
+                                "Unknown"
+                            ],
+                            "type": "string",
+                            "x-ms-enum": {
+                                "modelAsString": true,
+                                "name": "ProjectTargetPlatform"
+                            }
+                        }
+                    },
+                    "required": [
+                        "sourcePlatform",
+                        "targetPlatform"
+                    ],
+                    "type": "object"
+                }
+            },
+            "type": "object"
+        },
+        "api_version": {
+            "required": true,
+            "type": "string"
+        }
+    }
+}

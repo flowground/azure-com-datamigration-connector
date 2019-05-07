@@ -1,0 +1,123 @@
+{
+    "type": "object",
+    "properties": {
+        "subscriptionId": {
+            "required": true,
+            "type": "string"
+        },
+        "groupName": {
+            "required": true,
+            "type": "string"
+        },
+        "serviceName": {
+            "required": true,
+            "type": "string"
+        },
+        "projectName": {
+            "required": true,
+            "type": "string"
+        },
+        "taskName": {
+            "required": true,
+            "type": "string"
+        },
+        "requestBody": {
+            "allOf": [
+                {
+                    "description": "ARM resource.",
+                    "properties": {
+                        "id": {
+                            "description": "Resource ID.",
+                            "readOnly": true,
+                            "type": "string"
+                        },
+                        "name": {
+                            "description": "Resource name.",
+                            "readOnly": true,
+                            "type": "string"
+                        },
+                        "type": {
+                            "description": "Resource type.",
+                            "readOnly": true,
+                            "type": "string"
+                        }
+                    },
+                    "x-ms-azure-resource": true,
+                    "type": "object"
+                }
+            ],
+            "description": "A task resource",
+            "properties": {
+                "etag": {
+                    "description": "HTTP strong entity tag value. This is ignored if submitted.",
+                    "type": "string"
+                },
+                "properties": {
+                    "description": "Base class for all types of DMS task properties. If task is not supported by current client, this object is returned.",
+                    "discriminator": {
+                        "propertyName": "taskType"
+                    },
+                    "properties": {
+                        "errors": {
+                            "description": "Array of errors. This is ignored if submitted.",
+                            "items": {
+                                "description": "Error information in OData format.",
+                                "properties": {
+                                    "code": {
+                                        "description": "The machine-readable description of the error, such as 'InvalidRequest' or 'InternalServerError'",
+                                        "type": "string"
+                                    },
+                                    "details": {
+                                        "description": "Inner errors that caused this error",
+                                        "items": {},
+                                        "type": "array"
+                                    },
+                                    "message": {
+                                        "description": "The human-readable description of the error",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "readOnly": true,
+                            "type": "array"
+                        },
+                        "state": {
+                            "description": "The state of the task. This is ignored if submitted.",
+                            "enum": [
+                                "Unknown",
+                                "Queued",
+                                "Running",
+                                "Canceled",
+                                "Succeeded",
+                                "Failed",
+                                "FailedInputValidation",
+                                "Faulted"
+                            ],
+                            "readOnly": true,
+                            "type": "string",
+                            "x-ms-enum": {
+                                "modelAsString": true,
+                                "name": "TaskState"
+                            }
+                        },
+                        "taskType": {
+                            "description": "Task type.",
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "taskType"
+                    ],
+                    "type": "object",
+                    "x-ms-discriminator-value": "Unknown"
+                }
+            },
+            "type": "object"
+        },
+        "api_version": {
+            "required": true,
+            "type": "string"
+        }
+    }
+}

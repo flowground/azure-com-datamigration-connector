@@ -1,0 +1,25 @@
+{
+    "type": "object",
+    "properties": {
+        "deleteRunningTasks": {
+            "required": false,
+            "type": "boolean"
+        },
+        "groupName": {
+            "required": true,
+            "type": "string"
+        },
+        "serviceName": {
+            "required": true,
+            "type": "string"
+        },
+        "projectName": {
+            "required": true,
+            "type": "string"
+        },
+        "api_version": {
+            "required": true,
+            "type": "string"
+        }
+    }
+}
