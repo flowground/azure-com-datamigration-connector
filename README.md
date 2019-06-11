@@ -5,7 +5,7 @@
 A generated **flow**ground connector for the Azure Data Migration Service Resource Provider API (version 2018-03-15-preview).
 
 Generated from: https://api.apis.guru/v2/specs/azure.com/datamigration/2018-03-15-preview/swagger.json<br/>
-Generated at: 2019-05-07T17:38:04+03:00
+Generated at: 2019-06-11T18:13:53+03:00
 
 ## API Description
 
